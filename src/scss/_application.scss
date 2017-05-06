@@ -1,3 +1,15 @@
 .application-page{
-	
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+	justify-content: center;
+	.form{
+		margin: 20px 0;
+		padding: 10px;
+		display: flex;
+    flex-direction: column;
+		align-items: center;
+		width: 300px;
+		color: $primary-color;
+	}
 }
