@@ -1,7 +1,16 @@
 // Vendor Components
 import React from 'react';
+import { connect } from 'react-redux';
+import { hashHistory } from 'react-router';
 
-export default class Documents extends React.Component {
+class Documents extends React.Component {
+  componentWillMount() {
+    // Check if appropriate details exist in redux store for this component
+    // to mount, else redirect back to application page
+    if (!this.props.application.details.firstname) {
+      hashHistory.push('/application');
+    }
+  }
   render() {
     return (
       <div className="documents-page">
@@ -10,3 +19,8 @@ export default class Documents extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+export default connect(mapStateToProps)(Documents);
