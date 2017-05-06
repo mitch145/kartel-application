@@ -15,9 +15,13 @@ const validate = (values) => {
   const errors = {};
   if (!values.firstName) {
     errors.firstName = 'Required';
+  } else if (!/^[A-Za-z\s]+$/.test(values.firstName)) {
+    errors.firstName = 'First name may only contain letters and spaces';
   }
   if (!values.lastName) {
     errors.lastName = 'Required';
+  } else if (!/^[A-Za-z\s]+$/.test(values.lastName)) {
+    errors.lastName = 'Last name may only contain letters and spaces';
   }
   if (!values.DOB) {
     errors.DOB = 'Required';
@@ -27,9 +31,11 @@ const validate = (values) => {
   }
   if (!values.passportNumber) {
     errors.passportNumber = 'Required';
+  } else if (!/^[0-9A-Za-z]*$/.test(values.passportNumber)) {
+    errors.passportNumber = 'Passport number may only letters and numbers';
   }
   return errors;
-}
+};
 
 class Application extends React.Component {
   render() {
