@@ -7,7 +7,7 @@ class Documents extends React.Component {
   componentWillMount() {
     // Check if appropriate details exist in redux store for this component
     // to mount, else redirect back to application page
-    if (!this.props.application.details.firstname) {
+    if (!this.props.application.details.firstName) {
       hashHistory.push('/application');
     }
   }

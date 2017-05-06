@@ -18,7 +18,7 @@ export default function DigitalPlatform(state = initialState, action) {
     case 'APPLICATION_SUCCESS':
       return Object.assign({}, state, {
         loading: false,
-        details: action.values,
+        details: action.data,
       });
     case 'APPLICATION_FAILURE':
       return Object.assign({}, state, {
