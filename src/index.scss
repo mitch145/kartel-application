@@ -1,4 +1,4 @@
-// Theme Variables
+  // Theme Variables
 $primary-color: #fdd835;
 $primary-dark: #c6a700;
 $primary-light: #ffff6b;
@@ -15,6 +15,16 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-// Route Styling Imports
-@import 'scss/application';
-@import 'scss/documents';
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .explainer {
+    color: $secondary-color;
+  }
+}
+
+
+  // Route Styling Imports
+  @import 'scss/application';
+  @import 'scss/documents';

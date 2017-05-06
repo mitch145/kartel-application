@@ -1,23 +1,68 @@
 // Vendor Components
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
-import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { TextField, DatePicker } from 'redux-form-material-ui';
 
-export default class Application extends React.Component {
+// Custom Components
+import * as actions from '../../actions';
+import LoadingIndicator from '../../components/LoadingIndicator';
+
+const validate = (values) => {
+  const errors = {};
+  if (!values.firstName) {
+    errors.firstName = 'Required';
+  }
+  if (!values.lastName) {
+    errors.lastName = 'Required';
+  }
+  if (!values.DOB) {
+    errors.DOB = 'Required';
+  }
+  if (!values.address) {
+    errors.address = 'Required';
+  }
+  if (!values.passportNumber) {
+    errors.passportNumber = 'Required';
+  }
+  return errors;
+}
+
+class Application extends React.Component {
   render() {
     return (
-      <div className="application-page">
+      <form className="application-page" onSubmit={this.props.handleSubmit((data) => {
+        this.props.actions.apply(data);
+      })}>
         <Paper className="form">
-          <TextField type="text" hintText="First Name" />
-          <TextField type="text" hintText="Last Name" />
-          <DatePicker hintText="Date of Birth" />
-          <TextField type="text" hintText="Address" />
-          <TextField type="text" hintText="Passport Number" />
-          <RaisedButton label="Submit" secondary fullWidth />
+          <Field component={TextField} name="firstName" type="text" hintText="First Name" />
+          <Field component={TextField} name="lastName" type="text" hintText="Last Name" />
+          <Field component={DatePicker} name="DOB" format={null} hintText="Date of Birth" />
+          <Field component={TextField} name="address" type="text" hintText="Address" />
+          <Field component={TextField} name="passportNumber" type="text" hintText="Passport Number" />
+          <RaisedButton className="button" type="submit" label="Submit" secondary fullWidth />
         </Paper>
-      </div>
+        <LoadingIndicator loading={this.props.application.loading} explainer="Submitting Application" />
+      </form>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(actions, dispatch),
+  };
+};
+
+Application = connect(mapStateToProps, mapDispatchToProps)(Application);
+
+export default reduxForm({
+  form: 'application',
+  validate,
+})(Application);
