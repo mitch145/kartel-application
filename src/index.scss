@@ -1,0 +1,20 @@
+// Theme Variables
+$primary-color: #fdd835;
+$primary-dark: #c6a700;
+$primary-light: #ffff6b;
+$primary-text: #000000;
+$secondary-color: #fb8c00;
+$secondary-dark: #c25e00;
+$secondary-light: #ffbd45;
+$secondary-text: #000000;
+
+// Global Styles
+body {
+  background-color: $primary-color;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+// Route Styling Imports
+@import 'scss/application';
+@import 'scss/documents';
