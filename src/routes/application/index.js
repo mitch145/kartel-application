@@ -47,7 +47,7 @@ class Application extends React.Component {
           <p>Please enter your details</p>
           <Field component={TextField} name="firstName" type="text" hintText="First Name" />
           <Field component={TextField} name="lastName" type="text" hintText="Last Name" />
-          <Field component={DatePicker} name="DOB" format={null} hintText="Date of Birth" />
+          <Field component={DatePicker} name="DOB" autoOk format={null} hintText="Date of Birth" />
           <Field component={TextField} name="address" type="text" hintText="Address" />
           <Field component={TextField} name="passportNumber" type="text" hintText="Passport Number" />
           <RaisedButton className="button" type="submit" label="Submit" secondary fullWidth />
