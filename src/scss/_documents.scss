@@ -9,14 +9,24 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 300px;
     color: $primary-color;
-    p {
-      text-align: center;
+    p{
+      margin: 5px;
+      text-align: left;
     }
     .button {
       margin-top: 30px;
     }
+    .details{
+      font-weight: 500;
+      .value{
+        font-weight: 300;
+        align-self: flex-end;
+      }
+    }
+  }
+  .initial-upload .passport .success{
+    align-items: center;
   }
 }

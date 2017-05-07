@@ -21,7 +21,7 @@ export const apply = (data) => {
           type: 'APPLICATION_FAILURE',
         });
       }
-    }, 3000);
+    }, 1000);
   };
 };
 export const selectFile = (fileName, file) => {

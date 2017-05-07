@@ -70,12 +70,19 @@ body {
     padding: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 300px;
     color: #fdd835; }
     .documents-page .form p {
-      text-align: center; }
+      margin: 5px;
+      text-align: left; }
     .documents-page .form .button {
       margin-top: 30px; }
+    .documents-page .form .details {
+      font-weight: 500; }
+      .documents-page .form .details .value {
+        font-weight: 300;
+        align-self: flex-end; }
+  .documents-page .initial-upload .passport .success {
+    align-items: center; }
 
 /*# sourceMappingURL=index.css.map */

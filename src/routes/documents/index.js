@@ -7,6 +7,7 @@ import Paper from 'material-ui/Paper';
 import FileUploader from '../../components/FileUploader';
 import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import Divider from 'material-ui/Divider';
 
 // Custom Components
 import * as actions from '../../actions';
@@ -64,10 +65,22 @@ class Documents extends React.Component {
     }
   }
   render() {
-
     return (
       <div className="documents-page">
         <Paper className="form">
+          <p className="details">Welcome {this.props.application.details.firstName + ' ' + this.props.application.details.lastName}</p>
+          <Divider />
+          <p className="details">DOB: <span className="value">{this.props.application.details.DOB && this.props.application.details.DOB.toDateString()}</span></p>
+          <Divider />
+          <p className="details">Address: <span className="value">
+            {this.props.application.details.address}
+          </span></p>
+          <Divider />
+          <p className="details">Passport Number: <span className="value">
+            {this.props.application.details.passportNumber}
+          </span></p>
+        </Paper>
+        <Paper className="form initial-upload">
           <p>Please upload your lease, license and passport documents</p>
           <FileUploader
             touched={this.state.touched}
@@ -86,7 +99,7 @@ class Documents extends React.Component {
         {!!this.props.application.files.lease.data &&
           !!this.props.application.files.license.data &&
           !!this.props.application.files.passport.data ?
-          <Paper className="form">
+          <Paper className="form passport">
             <p>Is your passport Australian?</p>
             <RadioButtonGroup onChange={this.handlePassportTypeChange} name="shipSpeed">
               <RadioButton
@@ -109,7 +122,7 @@ class Documents extends React.Component {
             <RaisedButton secondary onTouchTap={this.uploadRent} label="Submit Selected Files" />
           </Paper> : ''}
         {this.state.passportType === 'australian' || (this.state.passportType === 'other' && !!this.props.application.files.rent.data) ?
-          <Paper className="form">
+          <Paper className="form success">
             <p>Application Complete!</p>
           </Paper> : ''}
       </div>
