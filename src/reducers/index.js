@@ -101,9 +101,7 @@ export default function DigitalPlatform(state = initialState, action) {
         files: {
           ...state.files,
           [action.name]: {
-            object: null,
-            data: null,
-            progress: null,
+            ...initialState.files[action.name],
           },
         },
       });
