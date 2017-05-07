@@ -26,11 +26,20 @@ export const apply = (data) => {
 };
 export const selectFile = (fileName, file) => {
   return (dispatch) => {
-    dispatch({
-      type: 'SELECT_FILE',
-      name: fileName,
-      object: file,
-    });
+    console.log(file.type)
+    if (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'application/pdf') {
+      dispatch({
+        type: 'SELECT_FILE',
+        name: fileName,
+        object: file,
+      });
+    } else {
+      dispatch({
+        type: 'SET_ERROR_FILE',
+        name: fileName,
+        error: 'File must be pdf, jpeg or png',
+      });
+    }
   };
 };
 export const uploadFile = (fileName, file) => {

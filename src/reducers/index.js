@@ -12,16 +12,19 @@ const initialState = {
       object: null,
       data: null,
       progress: null,
+      errors: null,
     },
     license: {
       object: null,
       data: null,
       progress: null,
+      errors: null,
     },
     passport: {
       object: null,
       data: null,
       progress: null,
+      errors: null,
     },
   },
 };
@@ -53,6 +56,17 @@ export default function DigitalPlatform(state = initialState, action) {
             object: action.object,
             data: null,
             progress: 0,
+            error: null,
+          },
+        },
+      });
+    case 'SET_ERROR_FILE':
+      return Object.assign({}, state, {
+        files: {
+          ...state.files,
+          [action.name]: {
+            ...state.files[action.name],
+            error: action.error,
           },
         },
       });
@@ -67,7 +81,6 @@ export default function DigitalPlatform(state = initialState, action) {
         },
       });
     case 'PROGRESS_FILE':
-    console.log(action)
       return Object.assign({}, state, {
         files: {
           ...state.files,

@@ -20,7 +20,7 @@ class FileUploader extends React.Component {
     this.props.actions.selectFile(this.props.fileName, file)
   }
   render() {
-    let {object, data, progress} = this.props.application.files[this.props.fileName]
+    let {object, data, progress, error} = this.props.application.files[this.props.fileName]
     return (
       <div className="file-uploader">
         <input
@@ -45,6 +45,7 @@ class FileUploader extends React.Component {
           />
         }
         <LinearProgress className="progress" mode="determinate" value={progress} />
+        {error ? <p className="error">{error}</p>: ''}
         {this.props.touched && !object ? <p className="error">{"Please upload " + this.props.fileName}</p>: ''}
       </div>
     );
