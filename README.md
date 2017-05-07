@@ -1,4 +1,10 @@
 # kartel-application
-1. git clone
-2. npm install
-3. npm start
+
+A small react application form with document upload.
+
+Usage
+
+```
+npm install
+npm start
+```
