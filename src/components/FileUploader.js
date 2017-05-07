@@ -12,6 +12,7 @@ class FileUploader extends React.Component {
   // Open file dialog from hidden input
   openFileDialog = () => {
     const fileUploadDom = this.refs.fileUpload;
+    fileUploadDom.value = null;
     fileUploadDom.click();
   }
   // Save file selected inside dialog to state
