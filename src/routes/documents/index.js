@@ -81,7 +81,7 @@ class Documents extends React.Component {
             touched={this.state.touched}
             fileName='passport'
           />
-          <RaisedButton secondary onTouchTap={this.uploadFiles} label="Upload Files" />
+          <RaisedButton secondary onTouchTap={this.uploadFiles} label="Submit Selected Files" />
         </Paper>
         {!!this.props.application.files.lease.data &&
           !!this.props.application.files.license.data &&
@@ -106,9 +106,9 @@ class Documents extends React.Component {
               touched={this.state.rentTouched}
               fileName='rent'
             />
-            <RaisedButton secondary onTouchTap={this.uploadRent} label="Upload Files" />
-          </Paper>  : ''}
-        {this.state.passportType === 'australian' || (this.state.passportType === 'other' &&  !!this.props.application.files.rent.data) ?
+            <RaisedButton secondary onTouchTap={this.uploadRent} label="Submit Selected Files" />
+          </Paper> : ''}
+        {this.state.passportType === 'australian' || (this.state.passportType === 'other' && !!this.props.application.files.rent.data) ?
           <Paper className="form">
             <p>Application Complete!</p>
           </Paper> : ''}
