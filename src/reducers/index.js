@@ -7,6 +7,23 @@ const initialState = {
     passportNumber: null,
   },
   loading: false,
+  files: {
+    lease: {
+      object: null,
+      data: null,
+      progress: null,
+    },
+    license: {
+      object: null,
+      data: null,
+      progress: null,
+    },
+    passport: {
+      object: null,
+      data: null,
+      progress: null,
+    },
+  },
 };
 
 export default function DigitalPlatform(state = initialState, action) {
@@ -27,8 +44,50 @@ export default function DigitalPlatform(state = initialState, action) {
           login: action.error,
         },
       });
-    case 'LOGOUT':
-      return initialState;
+    case 'SELECT_FILE':
+      return Object.assign({}, state, {
+        files: {
+          ...state.files,
+          [action.name]: {
+            ...state.files[action.name],
+            object: action.object,
+            data: null,
+            progress: 0,
+          },
+        },
+      });
+    case 'UPLOAD_FILE':
+      return Object.assign({}, state, {
+        files: {
+          ...state.files,
+          [action.name]: {
+            ...state.files[action.name],
+            data: action.data,
+          },
+        },
+      });
+    case 'PROGRESS_FILE':
+    console.log(action)
+      return Object.assign({}, state, {
+        files: {
+          ...state.files,
+          [action.name]: {
+            ...state.files[action.name],
+            progress: action.progress,
+          },
+        },
+      });
+    case 'DELETE_FILE':
+      return Object.assign({}, state, {
+        files: {
+          ...state.files,
+          [action.name]: {
+            object: null,
+            data: null,
+            progress: null,
+          },
+        },
+      });
     default:
       return state;
   }

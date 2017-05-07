@@ -2,17 +2,13 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-export default class FileUploader extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      progress: 0,
-      file: null,
-      uploaded: false,
-      error: null
-    }
-  }
+// Custom Components
+import * as actions from '../actions';
+
+class FileUploader extends React.Component {
   // Open file dialog from hidden input
   openFileDialog = () => {
     const fileUploadDom = this.refs.fileUpload;
@@ -21,53 +17,25 @@ export default class FileUploader extends React.Component {
   // Save file selected inside dialog to state
   selectFile = (e) => {
     const file = e.target.files[0]
-    this.setState({ file: file })
-  }
-  // Upload given file
-  uploadFile = (file) => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onprogress = (data) => {
-      if (data.lengthComputable) {
-        let progress = parseInt(((data.loaded / data.total) * 100), 10);
-        this.setState({ progress: progress })
-      }
-    }
-    // Function is called with file data when upload is complete,
-    // at this stage file can be sent anywhere (redux or server etc.)
-    fileReader.onload = (data) => {
-      this.setState({ uploaded: true })
-    }
-  }
-  // Perform checks before calling uploadFile function
-  uploadFileFromState = () => {
-    // Do not upload file if it's already uploaded or is not
-    // stored in state, instead return false
-    if (this.state.file === null || this.state.uploaded === true) {
-      return false;
-    }
-    this.uploadFile(this.state.file)
-    return true;
-  }
-  removeFile = () => {
-    this.setState({ file: null, uploaded: false, progress: 0 })
+    this.props.actions.selectFile(this.props.fileName, file)
   }
   render() {
+    let {object, data, progress} = this.props.application.files[this.props.fileName]
     return (
       <div className="file-uploader">
         <input
           ref="fileUpload"
-          type="file"
+          type="file" 
           style={{ "display": "none" }}
           onChange={this.selectFile} />
-        {this.state.file ?
+        {object ?
           <div className="selected-file">
             <p>
-              <i className={this.state.uploaded ? 'fa fa-check green' : 'fa fa-times red'}></i>
-              &nbsp;{this.state.file.name}
+              <i className={data ? 'fa fa-check green' : 'fa fa-times red'}></i>
+              &nbsp;{object.name}
             </p>
             <RaisedButton className="upload-cancel" onTouchTap={() => {
-              this.removeFile()
+              this.props.actions.deleteFile(this.props.fileName)
             }} label={"Remove"} />
           </div>
           : <RaisedButton
@@ -76,10 +44,20 @@ export default class FileUploader extends React.Component {
             label={"Upload " + this.props.fileName}
           />
         }
-        <LinearProgress className="progress" mode="determinate" value={this.state.progress} />
-        {this.state.error ? <p className="error">{this.state.error}</p>: ''}
-        {this.props.touched && !this.state.uploaded ? <p className="error">{"Please upload " + this.props.fileName}</p>: ''}
+        <LinearProgress className="progress" mode="determinate" value={progress} />
+        {this.props.touched && !object ? <p className="error">{"Please upload " + this.props.fileName}</p>: ''}
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(actions, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileUploader);
