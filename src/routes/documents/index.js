@@ -16,6 +16,8 @@ class Documents extends React.Component {
     super()
     this.state = {
       touched: false,
+      rentTouched: false,
+      passportType: null,
     }
   }
   componentWillMount() {
@@ -25,21 +27,41 @@ class Documents extends React.Component {
       // hashHistory.push('/application');
     }
   }
+  componentDidUpdate = () => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
   uploadFiles = (data) => {
     this.setState({ touched: false })
-    this.props.application.files.lease.object ?
-      this.props.actions.uploadFile('lease', this.props.application.files.lease.object) :
-      console.log('lease not uploaded')
 
-    this.props.application.files.license.object ?
-      this.props.actions.uploadFile('license', this.props.application.files.license.object) :
-      console.log('license not uploaded')
+    // If lease object is in memory upload file
+    this.props.application.files.lease.object &&
+      this.props.actions.uploadFile('lease', this.props.application.files.lease.object)
 
-    this.props.application.files.passport.object ?
-      this.props.actions.uploadFile('passport', this.props.application.files.passport.object) :
-      console.log('passport not uploaded')
+    // If license object is in memory upload file
+    this.props.application.files.license.object &&
+      this.props.actions.uploadFile('license', this.props.application.files.license.object)
+
+    // If passport object is in memory upload file
+    this.props.application.files.passport.object &&
+      this.props.actions.uploadFile('passport', this.props.application.files.passport.object)
 
     this.setState({ touched: true })
+  }
+  uploadRent = (data) => {
+    this.setState({ utilityRentTouched: false })
+
+    // If rent object is in memory upload file
+    this.props.application.files.rent.object &&
+      this.props.actions.uploadFile('rent', this.props.application.files.rent.object)
+
+    this.setState({ utilityRentTouched: true })
+  }
+  handlePassportTypeChange = (e) => {
+    if (e.target.value === 'yes') {
+      this.setState({ passportType: 'australian' })
+    } else {
+      this.setState({ passportType: 'other' })
+    }
   }
   render() {
 
@@ -66,7 +88,7 @@ class Documents extends React.Component {
           !!this.props.application.files.passport.data ?
           <Paper className="form">
             <p>Is your passport Australian?</p>
-            <RadioButtonGroup name="shipSpeed">
+            <RadioButtonGroup onChange={this.handlePassportTypeChange} name="shipSpeed">
               <RadioButton
                 value="yes"
                 label="Yes"
@@ -76,6 +98,19 @@ class Documents extends React.Component {
                 label="No"
               />
             </RadioButtonGroup>
+          </Paper> : ''}
+        {this.state.passportType === 'other' ?
+          <Paper className="form">
+            <p>Please upload either a utility bill or rent receipt</p>
+            <FileUploader
+              touched={this.state.rentTouched}
+              fileName='rent'
+            />
+            <RaisedButton secondary onTouchTap={this.uploadRent} label="Upload Files" />
+          </Paper>  : ''}
+        {this.state.passportType === 'australian' || (this.state.passportType === 'other' &&  !!this.props.application.files.rent.data) ?
+          <Paper className="form">
+            <p>Application Complete!</p>
           </Paper> : ''}
       </div>
     );

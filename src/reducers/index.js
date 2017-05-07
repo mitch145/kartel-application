@@ -26,6 +26,12 @@ const initialState = {
       progress: null,
       error: null,
     },
+    rent: {
+      object: null,
+      data: null,
+      progress: null,
+      error: null,
+    },
   },
 };
 
@@ -71,7 +77,6 @@ export default function DigitalPlatform(state = initialState, action) {
         },
       });
     case 'UPLOAD_FILE':
-    console.log(action)
       return Object.assign({}, state, {
         files: {
           ...state.files,
