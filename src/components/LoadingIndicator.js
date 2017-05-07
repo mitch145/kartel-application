@@ -10,7 +10,7 @@ export default class LoadingIndicator extends React.Component {
     return (
       <div>
         {this.props.loading ?
-          <div className="loading">
+          <div className="loading-indicator">
             <CircularProgress color={Theme.palette.accent1Color} />
             <p className="explainer">
               {this.props.explainer}
