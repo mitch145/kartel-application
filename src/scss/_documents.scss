@@ -3,14 +3,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 10px;
   .form {
-    margin: 20px 0;
+    margin: 10px 0;
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 400px;
     color: $primary-color;
+    p {
+      text-align: center;
+    }
     .button {
       margin-top: 30px;
     }

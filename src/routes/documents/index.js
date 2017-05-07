@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import FileUploader from '../../components/FileUploader';
 import RaisedButton from 'material-ui/RaisedButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
 // Custom Components
 import * as actions from '../../actions';
@@ -21,7 +22,7 @@ class Documents extends React.Component {
     // Check if appropriate details exist in redux store for this component
     // to mount, else redirect back to application page
     if (!this.props.application.details.firstName) {
-      hashHistory.push('/application');
+      // hashHistory.push('/application');
     }
   }
   uploadFiles = (data) => {
@@ -41,9 +42,11 @@ class Documents extends React.Component {
     this.setState({ touched: true })
   }
   render() {
+
     return (
       <div className="documents-page">
         <Paper className="form">
+          <p>Please upload your lease, license and passport documents</p>
           <FileUploader
             touched={this.state.touched}
             fileName='lease'
@@ -58,6 +61,22 @@ class Documents extends React.Component {
           />
           <RaisedButton secondary onTouchTap={this.uploadFiles} label="Upload Files" />
         </Paper>
+        {!!this.props.application.files.lease.data &&
+          !!this.props.application.files.license.data &&
+          !!this.props.application.files.passport.data ?
+          <Paper className="form">
+            <p>Is your passport Australian?</p>
+            <RadioButtonGroup name="shipSpeed">
+              <RadioButton
+                value="yes"
+                label="Yes"
+              />
+              <RadioButton
+                value="no"
+                label="No"
+              />
+            </RadioButtonGroup>
+          </Paper> : ''}
       </div>
     );
   }

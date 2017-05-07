@@ -26,7 +26,6 @@ export const apply = (data) => {
 };
 export const selectFile = (fileName, file) => {
   return (dispatch) => {
-    console.log(file.type)
     if (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'application/pdf') {
       dispatch({
         type: 'SELECT_FILE',
@@ -44,7 +43,6 @@ export const selectFile = (fileName, file) => {
 };
 export const uploadFile = (fileName, file) => {
   return (dispatch) => {
-
     // Define fileReader and begin reading file
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
@@ -62,10 +60,11 @@ export const uploadFile = (fileName, file) => {
     };
     // Called when file upload is complete
     fileReader.onload = (data) => {
+      // file data is inside data variable
       dispatch({
         type: 'UPLOAD_FILE',
         name: fileName,
-        data,
+        data: 'data has been sent to server',
       });
     };
   };

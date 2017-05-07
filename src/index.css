@@ -63,15 +63,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  padding: 10px; }
   .documents-page .form {
-    margin: 20px 0;
+    margin: 10px 0;
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 400px;
     color: #fdd835; }
+    .documents-page .form p {
+      text-align: center; }
     .documents-page .form .button {
       margin-top: 30px; }
 

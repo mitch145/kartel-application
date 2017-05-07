@@ -44,6 +44,7 @@ class Application extends React.Component {
         this.props.actions.apply(data);
       })}>
         <Paper className="form">
+          <p>Please enter your details</p>
           <Field component={TextField} name="firstName" type="text" hintText="First Name" />
           <Field component={TextField} name="lastName" type="text" hintText="Last Name" />
           <Field component={DatePicker} name="DOB" format={null} hintText="Date of Birth" />

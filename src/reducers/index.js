@@ -12,19 +12,19 @@ const initialState = {
       object: null,
       data: null,
       progress: null,
-      errors: null,
+      error: null,
     },
     license: {
       object: null,
       data: null,
       progress: null,
-      errors: null,
+      error: null,
     },
     passport: {
       object: null,
       data: null,
       progress: null,
-      errors: null,
+      error: null,
     },
   },
 };
@@ -71,6 +71,7 @@ export default function DigitalPlatform(state = initialState, action) {
         },
       });
     case 'UPLOAD_FILE':
+    console.log(action)
       return Object.assign({}, state, {
         files: {
           ...state.files,
